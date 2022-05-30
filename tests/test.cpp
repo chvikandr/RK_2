@@ -1,47 +1,49 @@
 #include "../reverse.cpp"
 #include "gtest/gtest.h"
 
+using namespace std;
 
 TEST(Tree, Empty) {
-    std::vector<int> expected_out = {0};
-    std::vector<int> out;
+    vector<int> out_expect = {0};
+    vector<int> out;
     Tree *tree = new Tree{};
     reverse(tree, out);
-    EXPECT_EQ(expected_out, out);
+    EXPECT_EQ(out_expect, out);
 }
 
 
 TEST(Tree, element_right) {
-    std::vector<int> expected_out = {1,0};
-    std::vector<int> out;
+    vector<int> out_expect = {1, 0};
+    vector<int> out;
     Tree *tree = new Tree{};
-    pushRight(1, tree);
+    addRight(1, tree);
     reverse(tree, out);
-    EXPECT_EQ(expected_out, out);
+    EXPECT_EQ(out_expect, out);
 }
 
 TEST(Tree, FullTree) {
-    std::vector<int> out;
-    std::vector<int> expected_out = {250, 1337, 42, -87, 171, 18, 35, -35, 69, 48, 56};
-    srandom(time(nullptr));
+    vector<int> out;
+    vector<int> out_expect = { 204, 1037, 43, -43, 185, 12, 12, -1, 98, 543, 56};
+
+
     Tree *tree = new Tree{56, nullptr, nullptr};
 
-    pushLeft(35, tree);
-    pushRight(48, tree);
+    addLeft(12, tree);
+    addRight(543, tree);
 
-    pushLeft(-35, tree->right);
-    pushRight(69, tree->right);
+    addLeft(-1, tree->right);
+    addRight(98, tree->right);
 
-    pushLeft(42, tree->left);
-    pushRight(18, tree->left);
+    addLeft(43, tree->left);
+    addRight(12, tree->left);
 
-    pushLeft(-87, tree->left->right);
-    pushRight(171, tree->left->right);
+    addLeft(-43, tree->left->right);
+    addRight(185, tree->left->right);
 
-    pushLeft(250, tree->left->left);
-    pushRight(1337, tree->left->left);
+    addLeft(204, tree->left->left);
+    addRight(1037, tree->left->left);
 
     reverse(tree, out);
-    EXPECT_EQ(expected_out, out);
+    EXPECT_EQ(out_expect, out);
 
 }
